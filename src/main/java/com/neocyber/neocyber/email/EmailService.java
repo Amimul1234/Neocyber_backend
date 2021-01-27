@@ -30,14 +30,14 @@ public class EmailService implements EmailSender{
 
             helper.setText(email, true);
             helper.setTo(to);
-            helper.setSubject("Confirm your email");
-            helper.setFrom("hello@amigoscode.com");
+            helper.setSubject("Please confirm your email");
+            helper.setFrom("neocybermr2021@gmail.com");
 
             mailSender.send(mimeMessage);
 
         }catch (MessagingException e)
         {
-            LOGGER.error("failed to send email ", e);
+            LOGGER.error("Failed to send email ", e);
             throw new IllegalStateException("Failed to send email");
         }
     }

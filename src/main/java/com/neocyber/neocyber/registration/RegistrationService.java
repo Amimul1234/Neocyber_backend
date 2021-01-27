@@ -26,24 +26,27 @@ public class RegistrationService {
 
         if(!isValidEmail)
         {
-            throw new IllegalStateException("email not valid");
+            throw new IllegalStateException("Email not valid");
         }
 
         AppUser appUser = new AppUser();
 
         appUser.setFirstName(registrationRequest.getFirst_name());
         appUser.setLastName(registrationRequest.getLast_name());
+        appUser.setAddress(registrationRequest.getAddress());
+        appUser.setZip_code(registrationRequest.getZip_code());
+        appUser.setMobile_number(registrationRequest.getMobile_number());
         appUser.setEmail(registrationRequest.getEmail());
         appUser.setPassword(registrationRequest.getPassword());
         appUser.setAppUserRole(AppUserRole.USER);
 
         String token = appUserService.signUpUser(appUser);
 
-        String link = "http://localhost/api/v1/registration/confirm?token="+token;
+        String link = "http://localhost/api/version1/register_user/confirm?token="+token;
 
         emailSender.send(registrationRequest.getEmail(), buildEmail(registrationRequest.getFirst_name(), link));
 
-        return token;
+        return "Waiting for email-verification";
     }
 
     @Transactional
@@ -55,7 +58,7 @@ public class RegistrationService {
                         new IllegalStateException("token not found"));
 
         if (confirmationToken.getConfirmedAt() != null) {
-            throw new IllegalStateException("email already confirmed");
+            throw new IllegalStateException("Email already confirmed");
         }
 
         LocalDateTime expiredAt = confirmationToken.getExpiresAt();
@@ -69,10 +72,11 @@ public class RegistrationService {
         appUserService.enableAppUser(
                 confirmationToken.getAppUser().getEmail());
 
-        return "confirmed";
+        return "User Registration Confirmed";
     }
 
     private String buildEmail(String name, String link) {
+
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -140,5 +144,4 @@ public class RegistrationService {
                 "\n" +
                 "</div></div>";
     }
-
 }

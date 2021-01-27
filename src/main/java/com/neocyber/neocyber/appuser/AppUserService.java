@@ -16,7 +16,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class AppUserService implements UserDetailsService
 {
-    private final static String MESSAGE = "user with email %s not found";
+    private final static String MESSAGE = "User with email %s not found";
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;

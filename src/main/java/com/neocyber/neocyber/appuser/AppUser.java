@@ -23,6 +23,9 @@ public class AppUser implements UserDetails {
     private Long id;
     private String firstName;
     private String lastName;
+    private String address;
+    private Integer zip_code;
+    private String mobile_number;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -33,9 +36,14 @@ public class AppUser implements UserDetails {
     public AppUser() {
     }
 
-    public AppUser(String firstName, String lastName, String email, String password, AppUserRole appUserRole) {
+    public AppUser(String firstName, String lastName, String address,
+                   Integer zip_code, String mobile_number, String email,
+                   String password, AppUserRole appUserRole) {
         this.firstName = firstName;
         this.lastName = lastName;
+        this.address = address;
+        this.zip_code = zip_code;
+        this.mobile_number = mobile_number;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -101,6 +109,30 @@ public class AppUser implements UserDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public Integer getZip_code() {
+        return zip_code;
+    }
+
+    public void setZip_code(Integer zip_code) {
+        this.zip_code = zip_code;
+    }
+
+    public String getMobile_number() {
+        return mobile_number;
+    }
+
+    public void setMobile_number(String mobile_number) {
+        this.mobile_number = mobile_number;
     }
 
     public String getEmail() {
